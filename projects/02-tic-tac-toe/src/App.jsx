@@ -8,7 +8,7 @@ import { saveGameToStorage, resetGameStorage } from './logic/storage/index'
 import conffeti from 'canvas-confetti'
 import './App.css'
 
-function App() {
+function App () {
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem('board')
     if (boardFromStorage) return JSON.parse(boardFromStorage)
@@ -31,7 +31,7 @@ function App() {
   }
 
   const updateBoard = (index) => {
-    if(board[index] || winner) return
+    if (board[index] || winner) return
 
     const newBoard = [...board]
     newBoard[index] = turn
@@ -40,7 +40,7 @@ function App() {
     const newTurn = turn === TURNS.X ? TURNS.O : TURNS.X
     setTurn(newTurn)
 
-    saveGameToStorage({ 
+    saveGameToStorage({
       board: newBoard,
       turn: newTurn
     })
@@ -49,7 +49,7 @@ function App() {
     if (newWinner) {
       conffeti()
       setWinner(newWinner)
-    } else if (checkEndGame(newBoard)){
+    } else if (checkEndGame(newBoard)) {
       setWinner(false)
     }
   }
@@ -60,12 +60,12 @@ function App() {
       <button onClick={resetGame}>Reset del juego</button>
       <section className='game'>
         {
-          board.map((square,index) => {
-            return(
+          board.map((square, index) => {
+            return (
               <Square
-              key={index}
-              index={index}
-              updateBoard={updateBoard}
+                key={index}
+                index={index}
+                updateBoard={updateBoard}
               >
                 {square}
               </Square>
@@ -83,7 +83,7 @@ function App() {
         </Square>
       </section>
 
-        <WinnerModal resetGame={resetGame} winner={winner} />
+      <WinnerModal resetGame={resetGame} winner={winner} />
 
     </main>
   )
