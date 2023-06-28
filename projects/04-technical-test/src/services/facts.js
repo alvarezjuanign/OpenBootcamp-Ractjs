@@ -7,10 +7,7 @@ export const getRandomFact = async () => {
   return fact
 }
 
-export const getImageCat = async (fact) => {
-  if (!fact) return
-  const firstThreeWords = fact.split(' ', 3).join(' ')
-
+export const getImageCat = async (firstThreeWords) => {
   const res = await fetch(`https://cataas.com/cat/says/${firstThreeWords}?size=:50&color=:red&json=true`)
   const response = await res.json()
   const { url } = response
