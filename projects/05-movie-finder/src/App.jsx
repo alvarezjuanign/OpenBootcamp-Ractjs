@@ -5,7 +5,7 @@ import './App.css'
 
 export function App () {
   const { search, updateSearch, error } = useSearch()
-  const { movies: mappedMovies, getMovies } = useMovies({ search })
+  const { movies, getMovies } = useMovies({ search })
 
   function useSearch () {
     const [search, updateSearch] = useState('')
@@ -56,7 +56,7 @@ export function App () {
       </header>
 
       <main>
-        <Movies movies={mappedMovies} />
+        <Movies movies={movies} />
       </main>
     </div>
   )
