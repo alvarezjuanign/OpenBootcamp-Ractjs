@@ -4,8 +4,8 @@ import { useEffect, useState, useRef } from 'react'
 import './App.css'
 
 export function App () {
-  const { movies: mappedMovies } = useMovies()
   const { search, updateSearch, error } = useSearch()
+  const { movies: mappedMovies, getMovies } = useMovies({ search })
 
   function useSearch () {
     const [search, updateSearch] = useState('')
@@ -41,7 +41,7 @@ export function App () {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log({ search })
+    getMovies()
   }
 
   return (
