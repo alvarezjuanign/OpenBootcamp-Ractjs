@@ -2,6 +2,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  max-width: 800px;
+}
+
+main{
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .search-form{
@@ -12,4 +20,11 @@
 
 .error{
   color: red;
+}
+
+.movies{
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2%;
 }
