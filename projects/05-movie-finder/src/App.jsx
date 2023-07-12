@@ -4,8 +4,10 @@ import { useEffect, useState, useRef } from 'react'
 import './App.css'
 
 export function App () {
+  const [sort, setSort] = useState(false)
+
   const { search, updateSearch, error } = useSearch()
-  const { movies, getMovies } = useMovies({ search })
+  const { movies, loading, getMovies } = useMovies({ search, sort })
 
   function useSearch () {
     const [search, updateSearch] = useState('')
@@ -36,12 +38,18 @@ export function App () {
   }
 
   const handleChange = (e) => {
-    updateSearch(e.target.value)
+    const newSearch = e.target.value
+    updateSearch(newSearch)
+    getMovies({ search: newSearch })
+  }
+
+  const handleSort = () => {
+    setSort(!sort)
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    getMovies()
+    getMovies({ search })
   }
 
   return (
@@ -50,13 +58,16 @@ export function App () {
         <h1>Movie Finder</h1>
         <form className='search-form' onSubmit={handleSubmit}>
           <input onChange={handleChange} value={search} name='query' type='text' placeholder='Avengers, Star Wars, Harry Potter...' />
+          <input type='checkbox' onChange={handleSort} checked={sort} />
           <button>Search</button>
         </form>
         {error && <p className='error'>{error}</p>}
       </header>
 
       <main>
-        <Movies movies={movies} />
+        {
+          loading ? <p>Loading...</p> : <Movies movies={movies} />
+        }
       </main>
     </div>
   )
